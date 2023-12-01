@@ -55,10 +55,10 @@ def replace_strings_with_digits(data):
     if str(data).find("nine") != -1:
         for m in re.finditer("nine", data):
             matches.append([m.start(), "nine"])
-    print(data)
-    print(matches)
+    # print(data)
+    # print(matches)
     matches = sorted(matches, key=itemgetter(0))
-    print(matches)
+    # print(matches)
 
 
     if len(matches) > 2:
@@ -114,11 +114,11 @@ def find_sum_calibration_data_with_text(data):
     edited_data = data
 
     for item in edited_data:
-        print("Orig: " + item)
+        # print("Orig: " + item)
         item = replace_strings_with_digits(item)
-        print("Edit: " + item)
+        # print("Edit: " + item)
         cleaned_data = ''.join(filter(str.isdigit, item))
-        print("Clea: " + cleaned_data)
+        # print("Clea: " + cleaned_data)
         if len(cleaned_data) == 2:
             count += int(cleaned_data)
         elif len(cleaned_data) == 1:
