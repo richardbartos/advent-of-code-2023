@@ -20,6 +20,8 @@ number_dict = {
 def replace_strings_with_digits(data):
     matches = []
 
+    last_found_number = re.match(".+([0-9])[^0-9]*$", data)
+
     if str(data).find("one") != -1:
         for m in re.finditer("one", data):
             matches.append([m.start(), "one"])
@@ -55,18 +57,19 @@ def replace_strings_with_digits(data):
     if str(data).find("nine") != -1:
         for m in re.finditer("nine", data):
             matches.append([m.start(), "nine"])
-    print(data)
-    print(matches)
+    # print(data)
+    # print(matches)
     matches = sorted(matches, key=itemgetter(0))
-    print(matches)
 
     if len(matches) > 2:
         del matches[1:len(matches) - 1]
 
-    for match_item in matches:
-        data = str(data).replace(match_item[1], str(number_dict[match_item[1]]))
+    print(matches)
 
-    # print(data)
+    for match_item in matches:
+        if last_found_number and last_found_number.start(1) > int(match_item[0]):
+            data = str(data).replace(match_item[1], str(number_dict[match_item[1]]))
+
     return data
 
 
@@ -116,7 +119,7 @@ def find_sum_calibration_data_with_text(data):
     for item in edited_data:
         print("Orig: " + item)
         item = replace_strings_with_digits(item)
-        # print("Edit: " + item)
+        print("Edit: " + item)
         cleaned_data = ''.join(filter(str.isdigit, item))
         print("Cleared: " + cleaned_data)
         print("––––––")
@@ -124,7 +127,7 @@ def find_sum_calibration_data_with_text(data):
             count += int(cleaned_data)
         elif len(cleaned_data) == 1:
             count += int(cleaned_data + cleaned_data)
-        else:
+        elif len(cleaned_data) != 0:
             count += int(cleaned_data[0] + cleaned_data[-1])
 
     return count
