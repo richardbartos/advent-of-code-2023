@@ -64,11 +64,11 @@ def replace_strings_with_digits(data):
     if len(matches) > 2:
         del matches[1:len(matches) - 1]
 
-    print(matches)
+    if len(matches) == 2 and last_found_number and (last_found_number.start(1) < matches[0][0] and last_found_number.start(1) < matches[1][0]):
+        del matches[0]
 
     for match_item in matches:
-        if last_found_number and last_found_number.start(1) > int(match_item[0]):
-            data = str(data).replace(match_item[1], str(number_dict[match_item[1]]))
+        data = str(data).replace(match_item[1], str(number_dict[match_item[1]]))
 
     return data
 
@@ -110,19 +110,19 @@ def find_sum_calibration_data_with_text(data):
     ... "zrxprsixfiveone8bvbdmxjzbmthree",
     ... "three1kxqr21ninemhrmheightwoc",
     ... "stbqnrhdqnjcvjgthtmht8xndfgprq3eightwol"])
-    517
+    511
     """
 
     count = 0
     edited_data = data
 
     for item in edited_data:
-        print("Orig: " + item)
+        # print("Orig: " + item)
         item = replace_strings_with_digits(item)
-        print("Edit: " + item)
+        # print("Edit: " + item)
         cleaned_data = ''.join(filter(str.isdigit, item))
-        print("Cleared: " + cleaned_data)
-        print("––––––")
+        # print("Cleared: " + cleaned_data)
+        # print("––––––")
         if len(cleaned_data) == 2:
             count += int(cleaned_data)
         elif len(cleaned_data) == 1:
@@ -140,4 +140,4 @@ if __name__ == "__main__":
             data_input.append(line)
 
     print("Sum of all calibration numbers: " + str(find_sum_calibration_data(data_input)))
-    print("Sum of all calibration numbers inc. text digits: " + str(find_sum_calibration_data_with_text(["stbqnrhdqnjcvjgthtmht8xndfgprq3eightwol"])))
+    print("Sum of all calibration numbers inc. text digits: " + str(find_sum_calibration_data_with_text(data_input)))
