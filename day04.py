@@ -33,19 +33,9 @@ def eval_scratchcards(data):
             if re.findall(str(winning_number) + " ", " ".join(game[1])):
                 card_matches += 1
 
-        for x in range(card_matches):
-            print(x)
-            if x % 3 == 0:
-                points_total += 1
-                print("Added 1 point")
-            elif x % 3 == 1:
-                points_total += 2
-                print("Added 2 points")
-            elif x % 3 == 2:
-                points_total += 4
-                print("Added 4 points")
+        points_total += card_matches * (1 + int(card_matches/3))
 
-        print("End od card. Total points: " + str(points_total))
+        # print("End od card. Matches: " + str(card_matches) + " Total points: " + str(points_total))
 
     return points_total
 
