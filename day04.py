@@ -11,8 +11,9 @@ def eval_scratchcards(data):
     ... "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1",
     ... "Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83",
     ... "Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36",
-    ... "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"])
-    13
+    ... "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11",
+    ... "Card 7: 31 18 13 56 72 22 10 11 12 | 31 18 13 56 72 22 10 11 12"])
+    85
     """
 
     points_total = 0
@@ -30,12 +31,16 @@ def eval_scratchcards(data):
             game[1].remove("")
 
         for winning_number in game[0]:
-            if re.findall(str(winning_number) + " ", " ".join(game[1])):
+            if re.findall(str(winning_number) + " ", " ".join(game[1]) + " "):
                 card_matches += 1
 
-        points_total += card_matches * (1 + int(card_matches/3))
+        if card_matches > 0:
+            points_total += 2 ** (card_matches - 1)
 
-        # print("End od card. Matches: " + str(card_matches) + " Total points: " + str(points_total))
+        if card_matches > 0:
+            print("End od card. " + str(card_matches) + " matches. | " + str(2 ** (card_matches - 1)) + " points added. Total points: " + str(points_total))
+        else:
+            print("End od card. " + str(card_matches) + " matches. | 0 points added. Total points: " + str(points_total))
 
     return points_total
 
