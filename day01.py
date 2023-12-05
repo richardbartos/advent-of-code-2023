@@ -117,12 +117,12 @@ def find_sum_calibration_data_with_text(data):
     edited_data = data
 
     for item in edited_data:
-        # print("Orig: " + item)
+        print("Orig: " + item)
         item = replace_strings_with_digits(item)
-        # print("Edit: " + item)
+        print("Edit: " + item)
         cleaned_data = ''.join(filter(str.isdigit, item))
-        # print("Cleared: " + cleaned_data)
-        # print("––––––")
+        print("Cleared: " + cleaned_data)
+        print("––––––")
         if len(cleaned_data) == 2:
             count += int(cleaned_data)
         elif len(cleaned_data) == 1:
