@@ -6,14 +6,9 @@ data_input = []
 
 def eval_scratchcards(data):
     """
-    >>> eval_scratchcards(["Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53",
-    ... "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19",
-    ... "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1",
-    ... "Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83",
-    ... "Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36",
-    ... "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11",
-    ... "Card 7: 31 18 13 56 72 22 10 11 12 | 31 18 13 56 72 22 10 11 12"])
-    85
+    >>> eval_scratchcards(["Card   4: 62 21 85 90 64 44 29  2 86 84 | 98 21 82 55 62 14  3 33  7 90 85 57 94 44 64  5 43 91 96 67 84 78 69 81 29",
+    ... "Card   2: 17  9  7 91 32 97 76 39 83 88 | 88 25 46 50 91 18 39 76 17 22 28 82 44 66 52  7 11 56 77  9 40 83 97 32 47"])
+    640
     """
 
     points_total = 0
@@ -31,16 +26,18 @@ def eval_scratchcards(data):
             game[1].remove("")
 
         for winning_number in game[0]:
-            if re.findall(str(winning_number) + " ", " ".join(game[1]) + " "):
+            # How did we get here? :upside_down_smile:
+            if re.findall(" " + str(winning_number) + " ", " " + " ".join(game[1]) + " "):
+                # print("Matched: " + str(winning_number))
                 card_matches += 1
 
         if card_matches > 0:
             points_total += 2 ** (card_matches - 1)
 
-        if card_matches > 0:
-            print("End od card. " + str(card_matches) + " matches. | " + str(2 ** (card_matches - 1)) + " points added. Total points: " + str(points_total))
-        else:
-            print("End od card. " + str(card_matches) + " matches. | 0 points added. Total points: " + str(points_total))
+        # if card_matches > 0:
+        #    print("End od card. " + str(card_matches) + " matches. | " + str(2 ** (card_matches - 1)) + " points added. Total points: " + str(points_total))
+        # else:
+        #    print("End od card. " + str(card_matches) + " matches. | 0 points added. Total points: " + str(points_total))
 
     return points_total
 
