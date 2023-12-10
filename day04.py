@@ -74,12 +74,19 @@ def eval_scratchcards_star2(data):
                 # print("Matched: " + str(winning_number))
                 card_matches += 1
 
+        for x in range(card_multiply[index]):
+            if card_matches > 0:
+                card_multiply[index] += 1
+                for y in range(card_matches):
+                    card_multiply[index + y + 1] += 1
+
         if card_matches > 0:
             card_multiply[index] += 1
-            for x in range(card_matches):
-                card_multiply[x+1] += 1
+            for y in range(card_matches):
+                card_multiply[index + y + 1] += 1
 
         print(card_multiply)
+
         # if card_matches > 0:
         #    print("End od card. " + str(card_matches) + " matches. | " + str(2 ** (card_matches - 1)) + " points added. Total points: " + str(points_total))
         # else:
@@ -87,7 +94,7 @@ def eval_scratchcards_star2(data):
 
         index += 1
 
-    return total_scratchcards
+    return sum(card_multiply)
 
 
 if __name__ == "__main__":
