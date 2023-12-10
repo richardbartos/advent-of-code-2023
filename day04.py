@@ -75,10 +75,8 @@ def eval_scratchcards_star2(data):
                 card_matches += 1
 
         for x in range(card_multiply[index]):
-            if card_matches > 0:
-                card_multiply[index] += 1
-                for y in range(card_matches):
-                    card_multiply[index + y + 1] += 1
+            for y in range(x):
+                card_multiply[index + y + 1] += 1
 
         if card_matches > 0:
             card_multiply[index] += 1
